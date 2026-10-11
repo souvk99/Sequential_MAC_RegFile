@@ -1,0 +1,174 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .box-input { fill: #1e293b; stroke: #38bdf8; stroke-width: 2; rx: 8; }
+      .box-ctrl { fill: #1e1b4b; stroke: #a855f7; stroke-width: 2; rx: 8; }
+      .box-data { fill: #064e3b; stroke: #10b981; stroke-width: 2; rx: 8; }
+      .box-out { fill: #1e293b; stroke: #f59e0b; stroke-width: 2; rx: 8; }
+      .box-sub { fill: #0f2e22; stroke: #34d399; stroke-dasharray: 4; stroke-width: 1.5; rx: 6; }
+      .box-ctrl-sub { fill: #2e1065; stroke: #c084fc; stroke-dasharray: 4; stroke-width: 1.5; rx: 6; }
+      .title-text { fill: #f8fafc; font-family: system-ui, -apple-system, sans-serif; font-size: 16px; font-weight: bold; }
+      .label-text { fill: #e2e8f0; font-family: system-ui, -apple-system, sans-serif; font-size: 13px; font-weight: 600; text-anchor: middle; }
+      .sub-text { fill: #94a3b8; font-family: system-ui, -apple-system, sans-serif; font-size: 11px; text-anchor: middle; }
+      .bus-text { fill: #38bdf8; font-family: monospace; font-size: 11px; font-weight: bold; }
+      .ctrl-text { fill: #c084fc; font-family: monospace; font-size: 11px; font-weight: bold; }
+      .arrow { stroke: #38bdf8; stroke-width: 2; fill: none; marker-end: url(#arrow-blue); }
+      .arrow-ctrl { stroke: #c084fc; stroke-width: 2; stroke-dasharray: 3 3; fill: none; marker-end: url(#arrow-purple); }
+      .arrow-data { stroke: #10b981; stroke-width: 2.5; fill: none; marker-end: url(#arrow-green); }
+      .arrow-out { stroke: #f59e0b; stroke-width: 2; fill: none; marker-end: url(#arrow-amber); }
+    </style>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#c084fc"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981"/>
+    </marker>
+    <marker id="arrow-amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f59e0b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="600" class="bg" rx="14"/>
+
+  <!-- Main Container Titles -->
+  <text x="500" y="32" class="title-text" font-size="18" text-anchor="middle" fill="#38bdf8">Sequential MAC with Weight Register File — Microarchitecture Block Diagram</text>
+
+  <!-- External Inputs Column -->
+  <g id="inputs">
+    <rect x="25" y="60" width="130" height="510" class="box-input" fill-opacity="0.25"/>
+    <text x="90" y="85" class="label-text" fill="#38bdf8">External Inputs</text>
+
+    <!-- clk & reset_n -->
+    <rect x="35" y="105" width="110" height="30" class="box-input"/>
+    <text x="90" y="125" class="label-text">clk</text>
+    <rect x="35" y="145" width="110" height="30" class="box-input"/>
+    <text x="90" y="165" class="label-text">reset_n</text>
+
+    <!-- load_weight & weight_in -->
+    <rect x="35" y="200" width="110" height="32" class="box-ctrl"/>
+    <text x="90" y="222" class="label-text" fill="#e9d5ff">load_weight</text>
+    <rect x="35" y="245" width="110" height="42" class="box-input"/>
+    <text x="90" y="265" class="label-text">weight_in</text>
+    <text x="90" y="278" class="sub-text">[7:0] signed</text>
+
+    <!-- valid_in & data_in -->
+    <rect x="35" y="335" width="110" height="32" class="box-ctrl"/>
+    <text x="90" y="357" class="label-text" fill="#e9d5ff">valid_in</text>
+    <rect x="35" y="380" width="110" height="42" class="box-input"/>
+    <text x="90" y="400" class="label-text">data_in</text>
+    <text x="90" y="413" class="sub-text">[7:0] signed</text>
+  </g>
+
+  <!-- Control Unit Subgraph (Center-Left) -->
+  <g id="control_unit">
+    <rect x="190" y="60" width="230" height="230" class="box-ctrl-sub"/>
+    <text x="305" y="85" class="label-text" fill="#c084fc">Control &amp; Pointers</text>
+
+    <rect x="205" y="105" width="200" height="50" class="box-ctrl"/>
+    <text x="305" y="127" class="label-text">Weight Write Counter</text>
+    <text x="305" y="142" class="sub-text">wr_ptr: 0 -&gt; 8 (Modulo 9)</text>
+
+    <rect x="205" y="175" width="200" height="50" class="box-ctrl"/>
+    <text x="305" y="197" class="label-text">Read Counter</text>
+    <text x="305" y="212" class="sub-text">rd_ptr: 0 -&gt; 8 (valid_in gated)</text>
+
+    <rect x="205" y="235" width="200" height="40" class="box-ctrl"/>
+    <text x="305" y="255" class="label-text">out_valid Pulse Gen</text>
+    <text x="305" y="268" class="sub-text">Active on rd_ptr == 8</text>
+  </g>
+
+  <!-- Weight Register File (Center-Top) -->
+  <g id="regfile">
+    <rect x="460" y="60" width="220" height="230" class="box-sub"/>
+    <text x="570" y="85" class="label-text" fill="#34d399">Weight Register File</text>
+
+    <!-- Reg blocks 0 to 8 -->
+    <rect x="475" y="105" width="190" height="22" class="box-data"/>
+    <text x="570" y="120" class="sub-text" fill="#a7f3d0">kernel_buff[0] (8-bit)</text>
+    <rect x="475" y="132" width="190" height="22" class="box-data"/>
+    <text x="570" y="147" class="sub-text" fill="#a7f3d0">kernel_buff[1] (8-bit)</text>
+    <text x="570" y="172" class="sub-text" font-size="14">. . . (9 registers total) . . .</text>
+    <rect x="475" y="185" width="190" height="22" class="box-data"/>
+    <text x="570" y="200" class="sub-text" fill="#a7f3d0">kernel_buff[8] (8-bit)</text>
+
+    <!-- 9:1 Mux -->
+    <polygon points="500,230 640,230 610,265 530,265" fill="#1e293b" stroke="#34d399" stroke-width="1.5"/>
+    <text x="570" y="250" class="label-text" font-size="11">9:1 Multiplexer</text>
+    <text x="570" y="280" class="bus-text" text-anchor="middle">w_selected[7:0]</text>
+  </g>
+
+  <!-- Datapath (Bottom / Center-Right) -->
+  <g id="datapath">
+    <rect x="190" y="320" width="570" height="250" class="box-sub"/>
+    <text x="475" y="345" class="label-text" fill="#34d399">Sequential MAC Datapath (Signed Arithmetic)</text>
+
+    <!-- Multiplier -->
+    <rect x="220" y="390" width="160" height="70" class="box-data"/>
+    <text x="300" y="420" class="label-text">8x8 Signed Multiplier</text>
+    <text x="300" y="440" class="sub-text">mult_out[15:0] = data * w</text>
+
+    <!-- Sign Extender -->
+    <rect x="410" y="405" width="110" height="45" class="box-data"/>
+    <text x="465" y="428" class="label-text">Sign Extender</text>
+    <text x="465" y="442" class="sub-text">16 -&gt; 21 bits</text>
+
+    <!-- Adder / Accumulator -->
+    <rect x="550" y="390" width="180" height="70" class="box-data"/>
+    <text x="640" y="420" class="label-text">21-Bit Signed Adder</text>
+    <text x="640" y="440" class="sub-text">accum_reg + mult_out_ext</text>
+
+    <!-- Accumulator Register -->
+    <rect x="550" y="490" width="180" height="50" class="box-data"/>
+    <text x="640" y="515" class="label-text">Accumulator Register</text>
+    <text x="640" y="530" class="sub-text">accum_reg[20:0]</text>
+  </g>
+
+  <!-- Output Unit (Right) -->
+  <g id="outputs">
+    <rect x="800" y="60" width="175" height="510" class="box-out" fill-opacity="0.25"/>
+    <text x="885" y="85" class="label-text" fill="#f59e0b">Outputs &amp; Status</text>
+
+    <!-- mac_out -->
+    <rect x="815" y="395" width="145" height="60" class="box-out"/>
+    <text x="885" y="422" class="label-text" fill="#fef08a">mac_out</text>
+    <text x="885" y="440" class="sub-text">[20:0] signed result</text>
+
+    <!-- out_valid -->
+    <rect x="815" y="225" width="145" height="45" class="box-out" stroke="#10b981"/>
+    <text x="885" y="247" class="label-text" fill="#a7f3d0">out_valid</text>
+    <text x="885" y="261" class="sub-text">1-cycle pulse flag</text>
+  </g>
+
+  <!-- Connective Arrows -->
+  <!-- load_weight to wr_ptr -->
+  <path d="M 145 216 L 205 216" class="arrow-ctrl"/>
+  <!-- weight_in to regfile -->
+  <path d="M 145 266 L 460 266" class="arrow"/>
+  <!-- wr_ptr to regfile -->
+  <path d="M 405 130 L 475 130" class="arrow-ctrl"/>
+  <!-- valid_in to rd_ptr -->
+  <path d="M 145 351 L 175 351 L 175 200 L 205 200" class="arrow-ctrl"/>
+  <!-- rd_ptr to mux -->
+  <path d="M 405 200 L 435 200 L 435 248 L 500 248" class="arrow-ctrl"/>
+  <!-- data_in to multiplier -->
+  <path d="M 145 401 L 220 401" class="arrow"/>
+  <!-- w_selected to multiplier -->
+  <path d="M 570 265 L 570 300 L 260 300 L 260 390" class="arrow-data"/>
+  <!-- multiplier to sign extender -->
+  <path d="M 380 425 L 410 425" class="arrow-data"/>
+  <!-- sign extender to adder -->
+  <path d="M 520 425 L 550 425" class="arrow-data"/>
+  <!-- adder to accum_reg -->
+  <path d="M 640 460 L 640 490" class="arrow-data"/>
+  <!-- accum_reg feedback to adder -->
+  <path d="M 730 515 L 755 515 L 755 425 L 730 425" class="arrow-data"/>
+  <!-- accum_reg to mac_out -->
+  <path d="M 730 425 L 815 425" class="arrow-out"/>
+  <!-- rd_ptr / pulse gen to out_valid -->
+  <path d="M 405 255 L 815 255" class="arrow-ctrl"/>
+</svg>

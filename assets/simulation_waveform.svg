@@ -1,0 +1,192 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 640" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0b0f19; }
+      .grid-line { stroke: #1e293b; stroke-width: 1; stroke-dasharray: 2 4; }
+      .time-label { fill: #64748b; font-family: monospace; font-size: 11px; text-anchor: middle; }
+      .signal-name { fill: #e2e8f0; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; font-weight: 600; text-anchor: end; }
+      .signal-type { fill: #94a3b8; font-family: monospace; font-size: 10px; text-anchor: end; }
+      .wave-clk { stroke: #38bdf8; stroke-width: 1.8; fill: none; }
+      .wave-binary { stroke: #a855f7; stroke-width: 2; fill: none; }
+      .wave-done { stroke: #10b981; stroke-width: 2.2; fill: none; }
+      .bus-outline { stroke: #f59e0b; stroke-width: 1.5; fill: #1e1b4b; fill-opacity: 0.6; }
+      .bus-data { stroke: #06b6d4; stroke-width: 1.5; fill: #082f49; fill-opacity: 0.7; }
+      .bus-acc { stroke: #10b981; stroke-width: 1.8; fill: #064e3b; fill-opacity: 0.8; }
+      .bus-label { fill: #f8fafc; font-family: monospace; font-size: 10px; font-weight: bold; text-anchor: middle; }
+      .title-text { fill: #f8fafc; font-family: system-ui, -apple-system, sans-serif; font-size: 17px; font-weight: bold; text-anchor: middle; }
+      .phase-text { fill: #38bdf8; font-family: system-ui, -apple-system, sans-serif; font-size: 12px; font-weight: bold; text-anchor: middle; }
+      .cursor-line { stroke: #ef4444; stroke-width: 1.5; stroke-dasharray: 3 3; }
+      .cursor-text { fill: #ef4444; font-family: monospace; font-size: 10px; font-weight: bold; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1060" height="640" class="bg" rx="10"/>
+
+  <!-- Title Header -->
+  <text x="530" y="30" class="title-text">Vivado Behavioral Simulation Waveform (tb_mac_seq_b @ 100 MHz)</text>
+
+  <!-- Phase Markers -->
+  <rect x="230" y="42" width="360" height="22" fill="#1e1b4b" rx="4" stroke="#a855f7" stroke-width="1"/>
+  <text x="410" y="57" class="phase-text" fill="#c084fc">PHASE 1: WEIGHT LOADING (W0..W8 into kernel_buff[0..8])</text>
+
+  <rect x="620" y="42" width="370" height="22" fill="#064e3b" rx="4" stroke="#10b981" stroke-width="1"/>
+  <text x="805" y="57" class="phase-text" fill="#34d399">PHASE 2: STREAMING COMPUTE (D0..D8 * W0..W8 -> -326)</text>
+
+  <!-- Time Grid Markers -->
+  <g id="grid">
+    <line x1="170" y1="70" x2="170" y2="610" class="grid-line"/>
+    <text x="170" y="80" class="time-label">0 ns</text>
+
+    <line x1="210" y1="70" x2="210" y2="610" class="grid-line"/>
+    <text x="210" y="80" class="time-label">25 ns (RST)</text>
+
+    <line x1="250" y1="70" x2="250" y2="610" class="grid-line"/>
+    <text x="250" y="80" class="time-label">35 ns</text>
+
+    <line x1="590" y1="70" x2="590" y2="610" class="grid-line"/>
+    <text x="590" y="80" class="time-label">125 ns</text>
+
+    <line x1="630" y1="70" x2="630" y2="610" class="grid-line"/>
+    <text x="630" y="80" class="time-label">135 ns</text>
+
+    <line x1="970" y1="70" x2="970" y2="610" class="cursor-line"/>
+    <text x="970" y="80" class="cursor-text" text-anchor="middle">225 ns (VALID)</text>
+
+    <line x1="1010" y1="70" x2="1010" y2="610" class="cursor-line"/>
+    <text x="1010" y="80" class="cursor-text" text-anchor="middle">235 ns (DONE)</text>
+  </g>
+
+  <!-- Signal 1: clk (100 MHz) -->
+  <text x="155" y="115" class="signal-name">clk</text>
+  <text x="155" y="128" class="signal-type">1-bit</text>
+  <path d="M 170 120 L 190 120 L 190 100 L 210 100 L 210 120 L 230 120 L 230 100 L 250 100 L 250 120 L 270 120 L 270 100 L 290 100 L 290 120 L 330 120 L 330 100 L 370 100 L 370 120 L 410 120 L 410 100 L 450 100 L 450 120 L 490 120 L 490 100 L 530 100 L 530 120 L 570 120 L 570 100 L 610 100 L 610 120 L 650 120 L 650 100 L 690 100 L 690 120 L 730 120 L 730 100 L 770 100 L 770 120 L 810 120 L 810 100 L 850 100 L 850 120 L 890 120 L 890 100 L 930 100 L 930 120 L 970 120 L 970 100 L 1010 100 L 1010 120 L 1040 120" class="wave-clk"/>
+
+  <!-- Signal 2: reset_n -->
+  <text x="155" y="165" class="signal-name">reset_n</text>
+  <text x="155" y="178" class="signal-type">1-bit</text>
+  <path d="M 170 170 L 210 170 L 210 150 L 1040 150" class="wave-binary"/>
+
+  <!-- Signal 3: load_weight -->
+  <text x="155" y="215" class="signal-name">load_weight</text>
+  <text x="155" y="228" class="signal-type">1-bit</text>
+  <path d="M 170 220 L 230 220 L 230 200 L 590 200 L 590 220 L 1040 220" class="wave-binary" stroke="#c084fc"/>
+
+  <!-- Signal 4: weight_in[7:0] -->
+  <text x="155" y="265" class="signal-name">weight_in</text>
+  <text x="155" y="278" class="signal-type">[7:0] signed</text>
+  <!-- Inactive before load -->
+  <line x1="170" y1="260" x2="230" y2="260" stroke="#475569" stroke-width="2"/>
+  <!-- 9 weight slots: 2, -3, 4, -5, 6, -7, 8, -9, 10 (each 40px wide) -->
+  <polygon points="230,260 236,250 264,250 270,260 264,270 236,270" class="bus-outline"/>
+  <text x="250" y="264" class="bus-label">2</text>
+  <polygon points="270,260 276,250 304,250 310,260 304,270 276,270" class="bus-outline"/>
+  <text x="290" y="264" class="bus-label">-3</text>
+  <polygon points="310,260 316,250 344,250 350,260 344,270 316,270" class="bus-outline"/>
+  <text x="330" y="264" class="bus-label">4</text>
+  <polygon points="350,260 356,250 384,250 390,260 384,270 356,270" class="bus-outline"/>
+  <text x="370" y="264" class="bus-label">-5</text>
+  <polygon points="390,260 396,250 424,250 430,260 424,270 396,270" class="bus-outline"/>
+  <text x="410" y="264" class="bus-label">6</text>
+  <polygon points="430,260 436,250 464,250 470,260 464,270 436,270" class="bus-outline"/>
+  <text x="450" y="264" class="bus-label">-7</text>
+  <polygon points="470,260 476,250 504,250 510,260 504,270 476,270" class="bus-outline"/>
+  <text x="490" y="264" class="bus-label">8</text>
+  <polygon points="510,260 516,250 544,250 550,260 544,270 516,270" class="bus-outline"/>
+  <text x="530" y="264" class="bus-label">-9</text>
+  <polygon points="550,260 556,250 584,250 590,260 584,270 556,270" class="bus-outline"/>
+  <text x="570" y="264" class="bus-label">10</text>
+  <line x1="590" y1="260" x2="1040" y2="260" stroke="#475569" stroke-width="2"/>
+
+  <!-- Signal 5: valid_in -->
+  <text x="155" y="315" class="signal-name">valid_in</text>
+  <text x="155" y="328" class="signal-type">1-bit</text>
+  <path d="M 170 320 L 630 320 L 630 300 L 990 300 L 990 320 L 1040 320" class="wave-binary" stroke="#38bdf8"/>
+
+  <!-- Signal 6: data_in[7:0] -->
+  <text x="155" y="365" class="signal-name">data_in</text>
+  <text x="155" y="378" class="signal-type">[7:0] signed</text>
+  <line x1="170" y1="360" x2="630" y2="360" stroke="#475569" stroke-width="2"/>
+  <!-- 9 data values: 1, 2, -3, 4, -5, 6, -7, 8, -9 -->
+  <polygon points="630,360 636,350 664,350 670,360 664,370 636,370" class="bus-data"/>
+  <text x="650" y="364" class="bus-label">1</text>
+  <polygon points="670,360 676,350 704,350 710,360 704,370 676,370" class="bus-data"/>
+  <text x="690" y="364" class="bus-label">2</text>
+  <polygon points="710,360 716,350 744,350 750,360 744,370 716,370" class="bus-data"/>
+  <text x="730" y="364" class="bus-label">-3</text>
+  <polygon points="750,360 756,350 784,350 790,360 784,370 756,370" class="bus-data"/>
+  <text x="770" y="364" class="bus-label">4</text>
+  <polygon points="790,360 796,350 824,350 830,360 824,370 796,370" class="bus-data"/>
+  <text x="810" y="364" class="bus-label">-5</text>
+  <polygon points="830,360 836,350 864,350 870,360 864,370 836,370" class="bus-data"/>
+  <text x="850" y="364" class="bus-label">6</text>
+  <polygon points="870,360 876,350 904,350 910,360 904,370 876,370" class="bus-data"/>
+  <text x="890" y="364" class="bus-label">-7</text>
+  <polygon points="910,360 916,350 944,350 950,360 944,370 916,370" class="bus-data"/>
+  <text x="930" y="364" class="bus-label">8</text>
+  <polygon points="950,360 956,350 984,350 990,360 984,370 956,370" class="bus-data"/>
+  <text x="970" y="364" class="bus-label">-9</text>
+  <line x1="990" y1="360" x2="1040" y2="360" stroke="#475569" stroke-width="2"/>
+
+  <!-- Signal 7: rd_ptr[3:0] -->
+  <text x="155" y="420" class="signal-name">rd_ptr</text>
+  <text x="155" y="433" class="signal-type">[3:0] dec</text>
+  <line x1="170" y1="415" x2="630" y2="415" stroke="#475569" stroke-width="2"/>
+  <polygon points="630,415 636,405 664,405 670,415 664,425 636,425" class="bus-outline"/>
+  <text x="650" y="419" class="bus-label">0</text>
+  <polygon points="670,415 676,405 704,405 710,415 704,425 676,425" class="bus-outline"/>
+  <text x="690" y="419" class="bus-label">1</text>
+  <polygon points="710,415 716,405 744,405 750,415 744,425 716,425" class="bus-outline"/>
+  <text x="730" y="419" class="bus-label">2</text>
+  <polygon points="750,415 756,405 784,405 790,415 784,425 756,425" class="bus-outline"/>
+  <text x="770" y="419" class="bus-label">3</text>
+  <polygon points="790,415 796,405 824,405 830,415 824,425 796,425" class="bus-outline"/>
+  <text x="810" y="419" class="bus-label">4</text>
+  <polygon points="830,415 836,405 864,405 870,415 864,425 836,425" class="bus-outline"/>
+  <text x="850" y="419" class="bus-label">5</text>
+  <polygon points="870,415 876,405 904,405 910,415 904,425 876,425" class="bus-outline"/>
+  <text x="890" y="419" class="bus-label">6</text>
+  <polygon points="910,415 916,405 944,405 950,415 944,425 916,425" class="bus-outline"/>
+  <text x="930" y="419" class="bus-label">7</text>
+  <polygon points="950,415 956,405 984,405 990,415 984,425 956,425" class="bus-outline"/>
+  <text x="970" y="419" class="bus-label">8</text>
+  <line x1="990" y1="415" x2="1040" y2="415" stroke="#475569" stroke-width="2"/>
+
+  <!-- Signal 8: Running mac_accum / mac_out -->
+  <text x="155" y="475" class="signal-name">accum_reg</text>
+  <text x="155" y="488" class="signal-type">[20:0] signed</text>
+  <polygon points="170,470 176,460 624,460 630,470 624,480 176,480" class="bus-acc"/>
+  <text x="400" y="474" class="bus-label">0 (Cleared on Idle)</text>
+  <polygon points="630,470 636,460 664,460 670,470 664,480 636,480" class="bus-acc"/>
+  <text x="650" y="474" class="bus-label">+2</text>
+  <polygon points="670,470 676,460 704,460 710,470 704,480 676,480" class="bus-acc"/>
+  <text x="690" y="474" class="bus-label">-4</text>
+  <polygon points="710,470 716,460 744,460 750,470 744,480 716,480" class="bus-acc"/>
+  <text x="730" y="474" class="bus-label">-16</text>
+  <polygon points="750,470 756,460 784,460 790,470 784,480 756,480" class="bus-acc"/>
+  <text x="770" y="474" class="bus-label">-36</text>
+  <polygon points="790,470 796,460 824,460 830,470 824,480 796,480" class="bus-acc"/>
+  <text x="810" y="474" class="bus-label">-66</text>
+  <polygon points="830,470 836,460 864,460 870,470 864,480 836,480" class="bus-acc"/>
+  <text x="850" y="474" class="bus-label">-108</text>
+  <polygon points="870,470 876,460 904,460 910,470 904,480 876,480" class="bus-acc"/>
+  <text x="890" y="474" class="bus-label">-164</text>
+  <polygon points="910,470 916,460 944,460 950,470 944,480 916,480" class="bus-acc"/>
+  <text x="930" y="474" class="bus-label">-236</text>
+  <polygon points="950,470 956,460 1004,460 1010,470 1004,480 956,480" class="bus-acc" stroke="#34d399" stroke-width="2"/>
+  <text x="980" y="474" class="bus-label">-326 (FINAL)</text>
+  <line x1="1010" y1="470" x2="1040" y2="470" stroke="#475569" stroke-width="2"/>
+
+  <!-- Signal 9: out_valid -->
+  <text x="155" y="535" class="signal-name">out_valid</text>
+  <text x="155" y="548" class="signal-type">1-bit</text>
+  <path d="M 170 540 L 970 540 L 970 520 L 1010 520 L 1010 540 L 1040 540" class="wave-done"/>
+
+  <!-- Signal 10: mac_out[20:0] -->
+  <text x="155" y="585" class="signal-name">mac_out</text>
+  <text x="155" y="598" class="signal-type">[20:0] signed</text>
+  <polygon points="170,580 176,570 964,570 970,580 964,590 176,590" class="bus-outline"/>
+  <text x="560" y="584" class="bus-label">Previous Result / 0</text>
+  <polygon points="970,580 976,570 1034,570 1040,580 1034,590 976,590" class="bus-acc" stroke="#10b981" stroke-width="2.2"/>
+  <text x="1005" y="584" class="bus-label">-326</text>
+</svg>
